@@ -1,0 +1,206 @@
+/* General */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f5f5f5;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #d6d874;
+    color: black;
+    padding: 15px 0;
+    width: 100%;
+}
+
+header h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.menu-icon {
+    position: absolute;
+    left: 20px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.img-header {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.container {
+    display: flex;
+    height: calc(100vh - 60px);
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #cf7a34;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.submenu {
+    list-style-type: none;
+    padding-left: 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+}
+
+.submenu.show {
+    max-height: 500px;
+}
+
+.submenu li {
+    padding: 10px;
+    background-color: #e49e5d;
+    color: black;
+    text-align: center;
+}
+
+.sidebar ul li {
+    padding: 15px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.sidebar ul li:hover {
+    background-color: #a05f29;
+}
+
+.sidebar ul li a {
+    color: black;
+    text-decoration: none;
+    display: block;
+}
+
+.sidebar ul li.active {
+    background-color: #ee4f10;
+    font-weight: bold;
+}
+
+.logout {
+    text-align: center;
+    padding: 15px;
+    background-color: #994b26;
+    cursor: pointer;
+}
+
+.logout:hover {
+    background-color: #522b06;
+}
+
+/* Contenido */
+.content {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    height: 100%;
+}
+
+/* Formularios */
+.form-control {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-control label {
+    margin-right: 10px;
+    min-width: 150px;
+}
+
+.form-control input[type="text"] {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Alinear los botones en fila */
+.form-control-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+/* Botones */
+button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #4caf50;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+button[name="eliminar"] {
+    background-color: #f44336;
+}
+
+button[name="eliminar"]:hover {
+    background-color: #e53935;
+}
+
+button[name="actualizar"] {
+    background-color: #ffa726;
+}
+
+button[name="actualizar"]:hover {
+    background-color: #fb8c00;
+}
+
+/* Tabla */
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
