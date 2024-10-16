@@ -46,6 +46,7 @@ $conn = DB::getConnection();
 
             <!-- Formulario para buscar -->
             <h2>Buscar Producto</h2>
+            <br>
             <form method="POST" action="../../procesos/mant-producto.php">
                 <div class="form-control">
                     <label for="buscar">ID de Producto:</label>

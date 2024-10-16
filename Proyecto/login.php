@@ -26,7 +26,7 @@
                     <label for="password" style="display:none;">Contraseña:</label>
                     <input type="password" id="password" name="password" placeholder="Ingrese su contraseña" required>
                 </div>
-                <a href="#" class="forgot-password">Forgot password?</a>
+                <a href="#" class="forgot-password">Olvidaste tu Contraseña?</a>
                 <button class="login-btn" type="submit">Iniciar Sesión</button>
             </form>
             <div class="signup">

@@ -11,6 +11,23 @@ $conn = DB::getConnection();
     <title>Mantenimiento de Usuarios</title>
     <link rel="stylesheet" href="../../estilos/mantenimiento.css">
     <script src="../../js/sidebar.js" defer></script>
+    <script>
+        function validatePassword() {
+            // Solo validar si no se está eliminando el usuario
+            const isDeleting = document.querySelector('button[name="eliminar"]:focus');
+            if (isDeleting) {
+                return true; // Si se está eliminando, no validamos
+            }
+
+            var password = document.getElementById("contraseña").value;
+            var confirmPassword = document.getElementById("confirmar-contraseña").value;
+            if (password !== confirmPassword) {
+                alert("Las contraseñas no coinciden. Por favor, inténtelo de nuevo.");
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 <body>
     <header>
@@ -22,9 +39,7 @@ $conn = DB::getConnection();
     <div class="container">
         <div class="sidebar" id="sidebar">
             <ul>
-                <li class="active">
-                    <a href="adm-principal.php">Inicio</a>
-                </li>
+                <li class="active"><a href="adm-principal.php">Inicio</a></li>
                 <li onclick="toggleMenu()">Mantenimiento</li>
                 <ul id="mantenimiento-submenu" class="submenu">
                     <li><a href="mantenimiento-categoria.php">Categoría</a></li>
@@ -36,9 +51,7 @@ $conn = DB::getConnection();
                 <li><a href="compras.php">Compras</a></li>
                 <li><a href="ventas.php">Ventas</a></li>
             </ul>
-            <div class="logout" onclick="location.href='../../login.php'" style="cursor: pointer;">
-                Cerrar Sesión
-            </div>
+            <div class="logout" onclick="location.href='../../login.php'" style="cursor: pointer;">Cerrar Sesión</div>
         </div>
 
         <div class="content">
@@ -55,8 +68,9 @@ $conn = DB::getConnection();
                 </div>
             </form>
 
-            <!-- Formulario para insertar/actualizar/eliminar categoría -->
-            <form method="POST" action="../../procesos/mant-usuario.php">
+            <!-- Formulario para insertar/actualizar/eliminar usuario -->
+            <h2>Gestión de Usuario</h2>
+            <form method="POST" action="../../procesos/mant-usuario.php" onsubmit="return validatePassword()">
                 <div class="form-control">
                     <label for="nombre">Nombre:</label>
                     <input type="text" id="nombre" name="nombre" 
@@ -82,16 +96,23 @@ $conn = DB::getConnection();
                     <input type="password" id="contraseña" name="contraseña" required>
                 </div>
                 <div class="form-control">
+                    <label for="confirmar-contraseña">Verificación de Contraseña:</label>
+                    <input type="password" id="confirmar-contraseña" name="confirmar-contraseña" required>
+                </div>
+                <div class="form-control">
                     <label for="rol">Rol:</label>
-                    <input type="text" id="rol" name="rol" pattern="^[1-3]$" 
-                        title="1 No definido, 2 Vendedor, 3 Administrador" 
-                        value="<?php echo isset($_SESSION['rol']) ? htmlspecialchars($_SESSION['rol']) : ''; ?>" required>
+                    <select id="rol" name="rol" required>
+                        <option value="1" <?php echo (isset($_SESSION['rol']) && $_SESSION['rol'] == 1) ? 'selected' : ''; ?>>1 - No definido</option>
+                        <option value="2" <?php echo (isset($_SESSION['rol']) && $_SESSION['rol'] == 2) ? 'selected' : ''; ?>>2 - Vendedor</option>
+                        <option value="3" <?php echo (isset($_SESSION['rol']) && $_SESSION['rol'] == 3) ? 'selected' : ''; ?>>3 - Administrador</option>
+                    </select>
                 </div>
                 <div class="form-control">
                     <label for="estadoRegistro">Estado Registro:</label>
-                    <input type="text" id="estadoRegistro" name="estadoRegistro" pattern="^[01]$" 
-                        title="0 en Espera, 1 Aceptado" 
-                        value="<?php echo isset($_SESSION['estadoRegistro']) ? htmlspecialchars($_SESSION['estadoRegistro']) : ''; ?>" required>
+                    <select id="estadoRegistro" name="estadoRegistro" required>
+                        <option value="0" <?php echo (isset($_SESSION['estadoRegistro']) && $_SESSION['estadoRegistro'] == 0) ? 'selected' : ''; ?>>0 - En espera</option>
+                        <option value="1" <?php echo (isset($_SESSION['estadoRegistro']) && $_SESSION['estadoRegistro'] == 1) ? 'selected' : ''; ?>>1 - Activo</option>
+                    </select>
                 </div>
 
                 <input type="hidden" name="id_usuario" value="<?php echo isset($_SESSION['buscar']) ? htmlspecialchars($_SESSION['buscar']) : ''; ?>">
@@ -102,7 +123,6 @@ $conn = DB::getConnection();
                     <button type="submit" name="eliminar">Eliminar</button>
                 </div>
             </form>
-
 
             <h2>Usuarios Registrados</h2>
             <table>
@@ -125,7 +145,7 @@ $conn = DB::getConnection();
                     if ($result->num_rows > 0) {
                         while($row = $result->fetch_assoc()) {
                             echo "<tr>
-                                    <td>" . $row['IDUsuario'] . "</td>
+                                    <td>" . htmlspecialchars($row['IDUsuario']) . "</td>
                                     <td>" . htmlspecialchars($row['Nombre']) . "</td>
                                     <td>" . htmlspecialchars($row['Apellido']) . "</td>
                                     <td>" . htmlspecialchars($row['Correo']) . "</td>
@@ -146,7 +166,11 @@ $conn = DB::getConnection();
     </div>
     <?php
     unset($_SESSION['nombre']);
-    unset($_SESSION['descripcion']);
+    unset($_SESSION['apellidos']);
+    unset($_SESSION['correo']);
+    unset($_SESSION['celular']);
+    unset($_SESSION['rol']);
+    unset($_SESSION['estadoRegistro']);
     ?>
 </body>
 </html>

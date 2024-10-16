@@ -53,8 +53,15 @@ header h1 {
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
+    transition: width 0.3s ease;
+    overflow: hidden; 
 }
 
+.sidebar.minimized {
+    width: 0; 
+}
+
+/* Submenú */
 .submenu {
     list-style-type: none;
     padding-left: 20px;
@@ -118,20 +125,27 @@ header h1 {
 .form-control {
     margin-bottom: 15px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
 }
 
 .form-control label {
     margin-right: 10px;
-    min-width: 150px;
+    min-width: 150px; /* Mantiene un ancho mínimo para las etiquetas */
 }
 
-.form-control input[type="text"] {
-    flex-grow: 1;
+.form-control input[type="number"],
+.form-control input[type="date"],
+.form-control input[type="email"],
+.form-control input[type="password"],
+.form-control input[type="text"],
+.form-control select {
+    flex-grow: 1; /* Permite que el input crezca */
+    max-width: 250px; /* Tamaño máximo del input */
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    background-color: white; /* Fondo blanco para el input */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
 
 /* Alinear los botones en fila */
@@ -151,10 +165,12 @@ button {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-left: 20px; /* Agrega margen a la izquierda para separar del input */
 }
 
 button:hover {
     background-color: #45a049;
+    
 }
 
 button[name="eliminar"] {
@@ -175,25 +191,23 @@ button[name="actualizar"]:hover {
 
 /* Tabla */
 table {
-    width: 100%;
-    margin-top: 20px;
+    width: 80%; /* Ajusta el ancho de la tabla según lo necesites (80% como ejemplo) */
+    margin: 20px auto; /* Centra la tabla horizontalmente */
     border-collapse: collapse;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-table, th, td {
-    border: 1px solid #ddd;
-}
-
-th, td {
-    padding: 12px;
-    text-align: left;
-}
-
 th {
+    padding: 12px;
+    text-align: center; /* Centra los encabezados */
     background-color: #f2f2f2;
     font-weight: bold;
+}
+
+td {
+    padding: 12px;
+    text-align: left; /* Mantiene el texto alineado a la izquierda en las celdas de datos */
 }
 
 tr:nth-child(even) {
@@ -204,3 +218,16 @@ tr:hover {
     background-color: #f1f1f1;
 }
 
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+td:last-child {
+    text-align: center; /* Centra el contenido de la última celda (Acciones) */
+}
+
+.content h1 {
+    text-align: center;       /* Centrar el texto */
+    font-size: 28px;     
+    margin-bottom: 20px;     
+}
